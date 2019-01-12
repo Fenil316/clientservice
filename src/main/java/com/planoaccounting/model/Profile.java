@@ -40,6 +40,18 @@ public class Profile {
     @JoinColumn(name = "client_id")
     private Client client;
 
+    public Profile(String firstname, String lastname, Address address, Date dob, String phone, String emailId) {
+        this.firstname = firstname;
+        this.lastname = lastname;
+        this.address = address;
+        this.dob = dob;
+        this.phone = phone;
+        this.emailId = emailId;
+    }
+
+    public Profile() {
+    }
+
     public Long getProfileId() {
         return profileId;
     }

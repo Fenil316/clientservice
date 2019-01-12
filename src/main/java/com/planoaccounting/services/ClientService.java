@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface ClientService {
 
-    public Client getClientById(Long id);
+    public Client getClientBySSN(String ssn);
     public Client addClient(Client client);
     public List<Client> getClients(String clientType);
 }

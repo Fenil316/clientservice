@@ -24,7 +24,8 @@ public class ClientServiceImpl implements ClientService{
     public List<Client> getClients(String clientType) {
         List<Client> clients = new ArrayList<>();
         if(clientType !=null && !clientType.isEmpty()) {
-            if(Arrays.stream(ClientType.values()).map(Enum::name).collect(Collectors.toList()).contains(clientType.toUpperCase())) {
+            clientType = clientType.toUpperCase();
+            if(Arrays.stream(ClientType.values()).map(Enum::name).collect(Collectors.toList()).contains(clientType)) {
                 clients = repo.findByClientType(ClientType.valueOf(clientType));
             } else {
                 throw new ValidationErrorsException(Collections.singletonList(new FrameworkError(PlanoAccountingConstants.CLIENT_TYPE, "Invalid Client Type. Acceptable values: INDIVIDUAL and BUSINESS")));
@@ -32,12 +33,17 @@ public class ClientServiceImpl implements ClientService{
         } else {
             repo.findAll().iterator().forEachRemaining(clients::add);
         }
+
         return clients;
     }
 
     @Override
-    public Client getClientById(Long id) {
-        return repo.findById(id).get();
+    public Client getClientBySSN(String SSN) {
+        Client client = repo.findBySsn(SSN);
+        if(client == null)
+            throw new NoSuchElementException("Client not found");
+
+        return client;
     }
 
     @Override

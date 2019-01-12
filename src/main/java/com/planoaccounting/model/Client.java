@@ -37,6 +37,15 @@ public class Client implements HasCustomValidations<Client> {
     @OneToMany(mappedBy = "client", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Collection<Finance> finance = new ArrayList<>();
 
+    public Client() {
+    }
+
+    public Client(ClientType clientType, String ssn, Profile profile) {
+        this.clientType = clientType;
+        this.ssn = ssn;
+        this.profile = profile;
+    }
+
     public Long getCliendId() {
         return cliendId;
     }

@@ -20,17 +20,17 @@ public class ClientController {
     ClientService service;
 
     @RequestMapping(value = "/clients", method = RequestMethod.GET)
-    public ResponseEntity<EndResponse<List<Client>>> getAllCompanies(@RequestParam(value = "type", required = false) String clientType) {
+    public ResponseEntity<EndResponse<List<Client>>> getAllClients(@RequestParam(value = "type", required = false) String clientType) {
         EndResponse<List<Client>> response = new EndResponse<>();
         response.setPayload(service.getClients(clientType));
 
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/clients/{id}", method = RequestMethod.GET)
-    public ResponseEntity<EndResponse<Client>> getClientById(@PathVariable Long id) {
+    @RequestMapping(value = "/clients/{SSN}", method = RequestMethod.GET)
+    public ResponseEntity<EndResponse<Client>> getClientBySSN(@PathVariable String SSN) {
         EndResponse<Client> response = new EndResponse<>();
-        response.setPayload(service.getClientById(id));
+        response.setPayload(service.getClientBySSN(SSN));
 
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
