@@ -23,6 +23,15 @@ public class ClientController {
     public ResponseEntity<EndResponse<List<Client>>> getAllCompanies(@RequestParam(value = "type", required = false) String clientType) {
         EndResponse<List<Client>> response = new EndResponse<>();
         response.setPayload(service.getClients(clientType));
+
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/clients/{id}", method = RequestMethod.GET)
+    public ResponseEntity<EndResponse<Client>> getClientById(@PathVariable Long id) {
+        EndResponse<Client> response = new EndResponse<>();
+        response.setPayload(service.getClientById(id));
+
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 

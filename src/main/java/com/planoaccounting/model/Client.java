@@ -18,7 +18,7 @@ public class Client implements HasCustomValidations<Client> {
     @JsonIgnore
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer cliendId;
+    private Long cliendId;
 
     @Enumerated(value = EnumType.STRING)
     private ClientType clientType;
@@ -37,11 +37,11 @@ public class Client implements HasCustomValidations<Client> {
     @OneToMany(mappedBy = "client", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Collection<Finance> finance = new ArrayList<>();
 
-    public Integer getCliendId() {
+    public Long getCliendId() {
         return cliendId;
     }
 
-    public void setCliendId(Integer cliendId) {
+    public void setCliendId(Long cliendId) {
         this.cliendId = cliendId;
     }
 

@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
+import java.util.NoSuchElementException;
+
 @ControllerAdvice
 public class CustomExceptionHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler(ValidationErrorsException.class)
@@ -34,5 +36,13 @@ public class CustomExceptionHandler extends ResponseEntityExceptionHandler {
         endResponse.getErrors().add(new FrameworkError(PlanoAccountingConstants.ALE, ex.getMessage()));
 
         return new ResponseEntity<EndResponse>(endResponse, HttpStatus.CONFLICT);
+    }
+
+    @ExceptionHandler(NoSuchElementException.class)
+    public ResponseEntity<EndResponse> handleNoSuchElementExceptions(NoSuchElementException ex, WebRequest request) {
+        EndResponse endResponse = new EndResponse();
+        endResponse.getErrors().add(new FrameworkError(PlanoAccountingConstants.NSE, ex.getMessage()));
+
+        return new ResponseEntity<EndResponse>(endResponse, HttpStatus.NOT_FOUND);
     }
 }

@@ -36,6 +36,11 @@ public class ClientServiceImpl implements ClientService{
     }
 
     @Override
+    public Client getClientById(Long id) {
+        return repo.findById(id).get();
+    }
+
+    @Override
     public Client addClient(Client client) {
         Client existing = repo.findExistingClient(client.getSsn(), client.getProfile().getEmailId());
         if(existing != null)
