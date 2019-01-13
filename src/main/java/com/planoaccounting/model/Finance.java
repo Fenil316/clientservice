@@ -4,7 +4,9 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
+import javax.validation.Valid;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 @Entity
 public class Finance {
@@ -17,6 +19,8 @@ public class Finance {
     @NotEmpty(message = "organization name is required")
     private String organizationName;
 
+    @Valid
+    @NotNull(message = "Organization Address is required")
     private Address organizationAddress;
 
     @NotEmpty(message = "Tax id is required")

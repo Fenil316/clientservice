@@ -25,7 +25,7 @@ public class CustomExceptionHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler(UnexpectedException.class)
     public ResponseEntity<EndResponse> handleUnexpectedExceptions(UnexpectedException ex, WebRequest request) {
         EndResponse endResponse = new EndResponse();
-        endResponse.getErrors().add(new FrameworkError(PlanoAccountingConstants.ERR, ex.getMessage()));
+        endResponse.getErrors().add(new FrameworkError(PlanoAccountingConstants.ERR, (ex.getMessage() !=null && !ex.getMessage().isEmpty()) ? ex.getMessage() : "Something went wrong!"));
 
         return new ResponseEntity<EndResponse>(endResponse, HttpStatus.INTERNAL_SERVER_ERROR);
     }

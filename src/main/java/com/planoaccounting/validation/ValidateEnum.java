@@ -12,7 +12,7 @@ import static java.lang.annotation.ElementType.*;
 @Retention(RetentionPolicy.RUNTIME)
 @Constraint(validatedBy = EnumValidator.class)
 public @interface ValidateEnum {
-    String message() default "{com.planoaccounting.validation.ValidateEnum.message}";
+    String message() default "Invalid Client type";
     Class<?>[] groups() default {};
     Class<? extends Payload>[] payload() default {};
     Class<? extends Enum<?>> targetClassType();

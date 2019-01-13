@@ -2,15 +2,16 @@ package com.planoaccounting.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.planoaccounting.PlanoAccountingConstants;
 import com.planoaccounting.validation.HasCustomValidations;
 import com.planoaccounting.validation.FrameworkError;
+import com.planoaccounting.validation.RequestValidator;
+import com.sun.org.apache.bcel.internal.generic.DUP;
 
 import javax.persistence.*;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
 
 @Entity
 public class Client implements HasCustomValidations<Client> {
@@ -91,7 +92,22 @@ public class Client implements HasCustomValidations<Client> {
         List<FrameworkError> errors = new ArrayList<>();
         if(!errorsList.isEmpty()) errors.addAll(errorsList);
 
+        if(request.getFinance() != null) {
+            request.getFinance().forEach(finance -> RequestValidator.validRequest(finance));
+            String dup = duplicateFinancesTaxIds(request.getFinance());
+            if(dup != null && !dup.isEmpty()) {
+                FrameworkError error = new FrameworkError(PlanoAccountingConstants.DUP, "Duplicate tax Id: " + dup);
+                errors.add(error);
+            }
+
+        }
+
         return errors;
+    }
+
+    private String duplicateFinancesTaxIds(Collection<Finance> finance) {
+        Set<String> set = new HashSet<>();
+        return finance.stream().map(fin -> fin.getTaxId()).filter(i->!set.add(i)).findFirst().get();
     }
 
 }

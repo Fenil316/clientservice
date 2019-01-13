@@ -35,7 +35,7 @@ public class RequestValidator {
         try {
             return (List<FrameworkError>) request.getClass().getDeclaredMethod(IS_VALID, new Class[]{request.getClass(), List.class}).invoke(request, request, errors);
         } catch (NoSuchMethodException | InvocationTargetException | IllegalAccessException e) {
-            throw new UnexpectedException("");
+            return errors;
         }
     }
 }

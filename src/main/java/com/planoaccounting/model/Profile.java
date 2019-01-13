@@ -2,8 +2,10 @@ package com.planoaccounting.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
+import javax.validation.Valid;
 import javax.validation.constraints.*;
 import java.util.Date;
 
@@ -15,20 +17,24 @@ public class Profile {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long profileId;
 
-    @NotEmpty(message = "firstname is required")
-    @Size(min=1, max=255, message = "name too long")
+    @NotEmpty(message = "Firstname is required")
+    @Length.List({@Length(min = 1, message = "firstname too short"),
+            @Length(max = 255, message = "firstname too long")})
     private String firstname;
 
-    @NotEmpty(message = "lastname is required")
-    @Size(min=1, max=255, message = "name too long")
+    @NotEmpty(message = "Lastname is required")
+    @Length.List({@Length(min = 1, message = "lastname too short"),
+            @Length(max = 255, message = "lastname too long")})
     private String lastname;
 
+    @Valid
+    @NotNull(message = "Address is required")
     private Address address;
 
     @Temporal(value = TemporalType.DATE)
     private Date dob;
 
-    @NotEmpty(message = "phone number is required")
+    @NotEmpty(message = "Phone number is required")
     @Pattern(regexp = "(?:\\d{3}-){2}\\d{4}", message = "phone number should be in xxx-xxx-xxxx format")
     private String phone;
 

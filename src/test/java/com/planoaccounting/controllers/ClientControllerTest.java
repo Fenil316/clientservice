@@ -23,7 +23,6 @@ import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
-import javax.xml.bind.ValidationException;
 import java.util.*;
 
 import static org.hamcrest.Matchers.hasSize;
