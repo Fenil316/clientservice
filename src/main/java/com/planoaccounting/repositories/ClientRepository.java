@@ -13,5 +13,5 @@ public interface ClientRepository extends CrudRepository<Client, Long> {
 
     List<Client> findByClientType(ClientType clientType);
 
-    Client findBySsn(String ssn);
+    Client findByProfileEmailId(String email);
 }

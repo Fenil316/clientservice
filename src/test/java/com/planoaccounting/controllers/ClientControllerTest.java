@@ -100,17 +100,17 @@ public class ClientControllerTest {
     }
 
     @Test
-    public void getClientBySSNSuccess() throws Exception{
-        Mockito.when(clientService.getClientBySSN(ArgumentMatchers.anyString())).thenReturn(client);
-        mockMvc.perform(get("/clients/777777777"))
+    public void getClientByEmailSuccess() throws Exception{
+        Mockito.when(clientService.getClientByEmail(ArgumentMatchers.anyString())).thenReturn(client);
+        mockMvc.perform(get("/clients/jDoe@planoacc.com"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.payload.ssn", is("777777777")))
                 .andExpect(jsonPath("$.payload.profile.firstname", is("John")));
     }
 
     @Test
-    public void getClientBySSNNotFound() throws Exception{
-        Mockito.when(clientService.getClientBySSN(ArgumentMatchers.anyString())).thenThrow(new NoSuchElementException("Client not found"));
+    public void getClientByEmailNotFound() throws Exception{
+        Mockito.when(clientService.getClientByEmail(ArgumentMatchers.anyString())).thenThrow(new NoSuchElementException("Client not found"));
         mockMvc.perform(get("/clients/12345"))
                 .andExpect(status().is4xxClientError())
                 .andExpect(jsonPath("$.errors", hasSize(1)))

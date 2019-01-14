@@ -3,10 +3,9 @@ package com.planoaccounting.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.planoaccounting.PlanoAccountingConstants;
-import com.planoaccounting.validation.HasCustomValidations;
 import com.planoaccounting.validation.FrameworkError;
+import com.planoaccounting.validation.HasCustomValidations;
 import com.planoaccounting.validation.RequestValidator;
-import com.sun.org.apache.bcel.internal.generic.DUP;
 
 import javax.persistence.*;
 import javax.validation.Valid;

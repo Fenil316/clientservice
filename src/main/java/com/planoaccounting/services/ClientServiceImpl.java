@@ -38,8 +38,8 @@ public class ClientServiceImpl implements ClientService{
     }
 
     @Override
-    public Client getClientBySSN(String SSN) {
-        Client client = repo.findBySsn(SSN);
+    public Client getClientByEmail(String email) {
+        Client client = repo.findByProfileEmailId(email);
         if(client == null)
             throw new NoSuchElementException("Client not found");
 

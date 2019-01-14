@@ -27,10 +27,10 @@ public class ClientController {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/clients/{SSN}", method = RequestMethod.GET)
-    public ResponseEntity<EndResponse<Client>> getClientBySSN(@PathVariable String SSN) {
+    @RequestMapping(value = "/clients/{email}", method = RequestMethod.GET)
+    public ResponseEntity<EndResponse<Client>> getClientByEmail(@PathVariable String email) {
         EndResponse<Client> response = new EndResponse<>();
-        response.setPayload(service.getClientBySSN(SSN));
+        response.setPayload(service.getClientByEmail(email));
 
         return new ResponseEntity<>(response, HttpStatus.OK);
     }

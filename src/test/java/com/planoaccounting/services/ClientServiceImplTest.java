@@ -11,8 +11,6 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.ArgumentMatchers;
-import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -35,7 +33,7 @@ public class ClientServiceImplTest {
     List<Client> clientList;
     List<Client> clientBusinessList;
 
-    String ssn = "777777777";
+    String emailId = "jDoe@planoacc.com";
 
     @Autowired
     private ClientService clientService;
@@ -57,7 +55,7 @@ public class ClientServiceImplTest {
         Address address2 = new Address("1001 XYZ blvd", "Suite 11", "San Diego", "CA", "92131");
         Profile profile1 = new Profile("John", "Doe", address1, new Date(), "123-456-7891", "jDoe@planoacc.com");
         Profile profile2 = new Profile("Jane", "Doe", address2, new Date(), "123-456-7892", "jDoe1@planoacc.com");
-        client = new Client(ClientType.BUSINESS, ssn, profile1);
+        client = new Client(ClientType.BUSINESS, "777777777", profile1);
         Client client2 = new Client(ClientType.INDIVIDUAL, "888888888", profile2);
         clientList = new ArrayList<>();
         clientList.add(client);
@@ -79,10 +77,9 @@ public class ClientServiceImplTest {
 
     @Test(expected = ValidationErrorsException.class)
     public void getClientsJunkClientType(){
-        List<Client> result;
         Mockito.when(clientRepository.findByClientType(any(ClientType.class)))
                 .thenReturn(clientBusinessList);
-        result = clientService.getClients("junk");
+        clientService.getClients("junk");
     }
 
     @Test
@@ -97,17 +94,17 @@ public class ClientServiceImplTest {
     }
 
     @Test
-    public void getClientBySSNSuccess() {
-        Mockito.when(clientRepository.findBySsn(ssn))
+    public void getClientByEmailSuccess() {
+        Mockito.when(clientRepository.findByProfileEmailId(emailId))
                 .thenReturn(client);
 
-        Assert.assertSame(clientService.getClientBySSN(ssn), client);
+        Assert.assertSame(clientService.getClientByEmail(emailId), client);
     }
 
     @Test(expected = NoSuchElementException.class)
-    public void getClientBySSNNotFound() {
+    public void getClientByEmailNotFound() {
 
-       clientService.getClientBySSN("banana");
+       clientService.getClientByEmail("banana@abc.com");
     }
 
     @Test
