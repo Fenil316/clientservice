@@ -12,7 +12,7 @@ clientservice
 * All clients must have a unique SSN and Email Id.
 * For each finance submitted, there should be a unique Tax Id.
 
-###Technical Details
+### Technical Details
 * This is a springboot web application with RESTful APIs and an in-memory H2 database that will be bootstrapped and populated during application startup.
 * The database is relational and spring-data is used for object-relational mapping and to access/manipulate persistence stores.
 * The controller and service layer are tested with a 100% code coverage using junit, mockito and spring-test.
